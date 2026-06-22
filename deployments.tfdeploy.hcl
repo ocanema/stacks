@@ -1,23 +1,13 @@
 deployment "dev" {
   inputs = {
-    environment_name = "dev"
-    parent_directory = "non_default_directory"
+    environment    = "dev"
+    app_name       = "hello-app"
+    namespace      = "hello-dev-stack"
+    image          = "nginx:1.27"
+    replicas       = 1
+    container_port = 80
+    service_port   = 80
+    service_type   = "ClusterIP"
+    kube_context   = "k3d-terraform"
   }
-  destroy = true
-}
-
-deployment "test" {
-  inputs = {
-    environment_name = "test"
-    pet_count        = 2
-  }
-  destroy = true
-}
-
-deployment "prod" {
-  inputs = {
-    environment_name = "prod"
-    pet_count        = 3
-  }
-  destroy = true
 }

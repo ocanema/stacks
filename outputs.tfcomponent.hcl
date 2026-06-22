@@ -1,17 +1,35 @@
-output "manifest_filename" {
-  description = "Manifest filename"
-  value       = component.manifest.manifest_filename
+output "namespace" {
   type        = string
+  description = "Namespace where app is deployed."
+  value       = component.webserver.outputs.namespace 
 }
 
-output "manifest_contents" {
-  description = "Contents of manifest file"
-  value       = component.manifest.manifest_contents
+output "deployment_name" {
   type        = string
+  description = "Deployment name."
+  value       = component.webserver.outputs.deployment_name
 }
 
-output "simulated_filesystem" {
-  description = "What the filesystem would look like"
-  value       = concat([component.manifest.manifest_filename], component.pets.pet_filenames)
-  type        = list(string)
+output "service_name" {
+  type        = string
+  description = "Service name."
+  value       = component.webserver.outputs.service_name
+}
+
+output "service_type" {
+  type        = string
+  description = "Service type."
+  value       = component.webserver.outputs.service_type
+}
+
+output "service_port" {
+  type        = number
+  description = "Service port."
+  value       = component.webserver.outputs.service_port
+}
+
+output "node_port" {
+  type        = number
+  description = "NodePort value, if service type is NodePort."
+  value       = try(component.webserver.outputs.node_port, null)
 }

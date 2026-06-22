@@ -1,40 +1,29 @@
 required_providers {
-  time = {
-    source  = "hashicorp/time"
-    version = "~> 0.13.1"
-  }
-
-  random = {
-    source  = "hashicorp/random"
-    version = "~> 3.8.1"
+  kubernetes = {
+    source  = "hashicorp/kubernetes"
+    version = "~> 2.30"
   }
 }
 
-provider "random" "this" {}
-component "pets" {
-  source = "./modules/pet-module"
-  inputs = {
-    environment_name = var.environment_name
-    parent_directory = var.parent_directory
-    pet_count        = var.pet_count
-  }
-
-  providers = {
-    random = provider.random.this
-  }
+provider "kubernetes" "k3d" {
 }
 
-provider "time" "this" {}
-component "manifest" {
-  source = "./modules/manifest-module"
+component "webserver" {
+  source = "./modules/webserver"
 
   inputs = {
-    parent_directory = var.parent_directory
-    environment_name = var.environment_name
-    additional_files = component.pets.pet_filenames
+    environment    = var.environment
+    app_name       = var.app_name
+    namespace      = var.namespace
+    image          = var.image
+    replicas       = var.replicas
+    container_port = var.container_port
+    service_port   = var.service_port
+    service_type   = var.service_type
+    kube_context   = var.kube_context
   }
 
   providers = {
-    time = provider.time.this
+    kubernetes = provider.kubernetes.k3d
   }
 }
