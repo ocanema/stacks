@@ -1,6 +1,7 @@
 deployment "dev" {
   inputs = {
     environment_name = "dev"
+    parent_directory = "non_default_directory"
   }
 }
 deployment "test" {
