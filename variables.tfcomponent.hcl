@@ -9,3 +9,9 @@ variable "environment_name" {
   type        = string
   default     = "DEFAULT_TARGET"
 }
+
+variable "pet_count" {
+  description = "Number of pets to create"
+  type        = number
+  default     = 1
+}
