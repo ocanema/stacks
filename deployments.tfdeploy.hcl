@@ -3,8 +3,9 @@ deployment "dev" {
     environment_name = "dev"
     parent_directory = "non_default_directory"
   }
-  destroy = true`
+  destroy = true
 }
+
 deployment "test" {
   inputs = {
     environment_name = "test"
